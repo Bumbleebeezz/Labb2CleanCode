@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dataccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dataccess
 {
     public class FeedbackDbContext : DbContext
     {
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         public FeedbackDbContext() { }
         public FeedbackDbContext(DbContextOptions<FeedbackDbContext> options) : base(options) { }
