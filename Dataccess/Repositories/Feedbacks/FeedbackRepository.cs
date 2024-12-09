@@ -3,9 +3,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dataccess.Repositories.Feedbacks
 {
-    public class FeedbackRepository : Repository<Feedback>, IFeedbackRepository
+    public class FeedbackRepository : IFeedbackRepository
     {
-        public FeedbackRepository(FeedbackDbContext context, DbSet<Feedback> dbSet) : base(context, dbSet){ }
-        
+        public FeedbackRepository(FeedbackDbContext context, DbSet<Feedback> dbSet) 
+        {
+
+        }
+
+        public Task AddAsync(Feedback feedback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Feedback?> GetByIdAsync(int feedbackId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Feedback>> GetByProductIdAsync(int productId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
