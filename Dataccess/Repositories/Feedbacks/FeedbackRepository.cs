@@ -5,24 +5,29 @@ namespace Dataccess.Repositories.Feedbacks
 {
     public class FeedbackRepository : IFeedbackRepository
     {
-        public FeedbackRepository(FeedbackDbContext context, DbSet<Feedback> dbSet) 
-        {
+        private readonly FeedbackDbContext _dbContext;
 
+        public FeedbackRepository(FeedbackDbContext dbContext)
+        {
+            _dbContext = dbContext;
         }
 
-        public Task AddAsync(Feedback feedback)
+        public async Task AddAsync(Feedback feedback)
         {
-            throw new NotImplementedException();
+            await _dbContext.Feedbacks.AddAsync(feedback);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<Feedback?> GetByIdAsync(int feedbackId)
+        public async Task<Feedback?> GetByIdAsync(int feedbackId)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Feedbacks.FindAsync(feedbackId);
         }
 
-        public Task<IEnumerable<Feedback>> GetByProductIdAsync(int productId)
+        public async Task<IEnumerable<Feedback>> GetByProductIdAsync(int productId)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Feedbacks
+                .Where(f => f.ProductId == productId)
+                .ToListAsync();
         }
     }
 }
