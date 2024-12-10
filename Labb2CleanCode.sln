@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dataccess", "Dataccess\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{9BD92A56-12D4-4F60-903A-AE0BA0A020BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{B9943952-0673-446C-BD7A-27914007F09E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway.csproj", "{2F145B2B-EDC4-48D7-9E0E-11B4181709D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{9BD92A56-12D4-4F60-903A-AE0BA0A020BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BD92A56-12D4-4F60-903A-AE0BA0A020BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BD92A56-12D4-4F60-903A-AE0BA0A020BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9943952-0673-446C-BD7A-27914007F09E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9943952-0673-446C-BD7A-27914007F09E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9943952-0673-446C-BD7A-27914007F09E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9943952-0673-446C-BD7A-27914007F09E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F145B2B-EDC4-48D7-9E0E-11B4181709D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F145B2B-EDC4-48D7-9E0E-11B4181709D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F145B2B-EDC4-48D7-9E0E-11B4181709D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F145B2B-EDC4-48D7-9E0E-11B4181709D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
