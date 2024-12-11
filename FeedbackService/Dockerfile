@@ -2,7 +2,6 @@
 USER $APP_UID
 WORKDIR /app
 EXPOSE 5001
-COPY "FeedbackService/index.html" .
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release

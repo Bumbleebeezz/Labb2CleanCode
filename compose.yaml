@@ -7,21 +7,7 @@
       timeout: 3s
       retries: 5
       
-  service-a:
-    build:
-      context: .
-      dockerfile: ./ServiceA/Dockerfile
-    depends_on:
-      rabbit-mq:
-        condition: service_healthy
-  
-  service-b:
-    build:
-      context: .
-      dockerfile: ./ServiceB/Dockerfile
-    depends_on:
-      rabbit-mq:
-        condition: service_healthy
+
   
   api-feedback:
     build:
@@ -37,6 +23,3 @@
       dockerfile: ./Gateway/Dockerfile
     ports:
       - "5003:8080"
-    depends_on:
-      - service-a
-      - service-b
