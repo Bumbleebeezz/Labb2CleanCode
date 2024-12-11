@@ -1,4 +1,4 @@
-﻿namespace API.DTOs
+﻿namespace FeedbackService.DTOs
 {
     public class FeedbackDTO
     {

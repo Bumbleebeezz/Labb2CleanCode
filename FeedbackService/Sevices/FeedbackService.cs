@@ -1,9 +1,8 @@
-﻿
-using API.DTOs;
-using Dataccess.Entities;
+﻿using Dataccess.Entities;
 using Dataccess.Repositories.Feedbacks;
+using FeedbackService.DTOs;
 
-namespace Dataccess.Sevices
+namespace FeedbackService.Sevices
 {
     public class FeedbackService : IFeedbackService
     {

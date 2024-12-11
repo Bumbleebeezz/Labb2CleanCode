@@ -1,5 +1,6 @@
-﻿using API.DTOs;
-using Dataccess.Sevices;
+﻿
+using FeedbackService.DTOs;
+using FeedbackService.Sevices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

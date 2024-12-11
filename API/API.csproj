@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dataccess\Dataccess.csproj" />
+    <ProjectReference Include="..\FeedbackService\FeedbackService.csproj" />
   </ItemGroup>
 
 </Project>
