@@ -1,4 +1,4 @@
-services:
+﻿﻿services:
   rabbit-mq:
     image: rabbitmq:4.0-management
     healthcheck:
@@ -7,14 +7,30 @@ services:
       timeout: 3s
       retries: 5
       
-  FeedbackService:
+  service-a:
+    build:
+      context: .
+      dockerfile: ./ServiceA/Dockerfile
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+  
+  service-b:
+    build:
+      context: .
+      dockerfile: ./ServiceB/Dockerfile
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+  
+  api-feedback:
     build:
       context: .
       dockerfile: ./FeedbackService/Dockerfile
     depends_on:
       rabbit-mq:
-        condition: service_healthy
-  
+       condition: service_healthy
+       
   gateway:
     build:
       context: .
@@ -23,3 +39,4 @@ services:
       - "5003:8080"
     depends_on:
       - service-a
+      - service-b
