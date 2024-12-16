@@ -12,12 +12,12 @@ builder.Services.AddScoped<IFeedbackService, FeedbackService.Sevices.FeedbackSer
 builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 
 // Add DbContext with SQL Server or any other provider
-//builder.Services.AddDbContext<FeedbackDbContext>(options =>
-//   options.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionStrings_DefaultConnection")));
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FeedbackDbContext>(options =>
-   options.UseSqlServer(connectionString));
+   options.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionStrings_DefaultConnection")));
+
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//builder.Services.AddDbContext<FeedbackDbContext>(options =>
+//   options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 

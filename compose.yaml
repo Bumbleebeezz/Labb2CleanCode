@@ -14,20 +14,20 @@ services:
   gateway:
     build:
       context: .
-      dockerfile: ./Gateway/Dockerfile
+      dockerfile: Gateway/Dockerfile
     ports:
       - "5003:8080"
 
-  # sqlserver:
-  #   image: mcr.microsoft.com/mssql/server:2022-latest
-  #   container_name: sqlserver
-  #   ports:
-  #     - "1433:1433"
-  #   environment:
-  #     SA_PASSWORD: "SuperSafePass.123"
-  #     ACCEPT_EULA: "Y"
-  #   volumes:
-  #     - sqlserver_data:/var/opt/mssql
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "SuperSafePass.123"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
 
   feedbacksql:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -42,7 +42,8 @@ services:
 
   feedback-service:
     build:
-        context: FeedbackService
+        context: .
+        dockerfile: FeedbackService/Dockerfile
     depends_on:
         - feedbacksql
     ports:
@@ -51,5 +52,5 @@ services:
       ConnectionStrings_DefaultConnection: "Server=feedbacksql;Database=MyDatabase;User Id=sa;Password=SuperSafePass123;TrustServerCertificate=True;"
 
 volumes:
-  # sqlserver_data: {}
+  sqlserver_data: {}
   feedback_volume: {}
