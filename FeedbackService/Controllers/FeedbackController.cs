@@ -16,13 +16,15 @@ namespace API.Controllers
             _feedbackService = feedbackService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SubmitFeedback([FromBody] FeedbackDTO feedbackDto)
+        [HttpGet("product/{id}")]
+        public async Task<IActionResult> GetAllFeedbacksOnProduct(int id)
         {
-            var feedback = await _feedbackService.SubmitFeedbackAsync(feedbackDto);
-            return CreatedAtAction(nameof(GetFeedback), new { id = feedback.Id }, feedback);
-        }
+            var feedback = await _feedbackService.GetFeedbackByProductIdAsync(id);
+            if (feedback == null)
+                return NotFound();
 
+            return Ok(feedback);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFeedback(int id)
         {
@@ -32,6 +34,12 @@ namespace API.Controllers
 
             return Ok(feedback);
         }
+        [HttpPost]
+        public async Task<IActionResult> SubmitFeedback([FromBody] FeedbackDTO feedbackDto)
+        {
+            var feedback = await _feedbackService.SubmitFeedbackAsync(feedbackDto);
+            return CreatedAtAction(nameof(GetFeedback), new { id = feedback.Id }, feedback);
+        }
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveFeedback(int id)
         {
@@ -39,7 +47,7 @@ namespace API.Controllers
             if (feedback == null)
                 return NotFound();
 
-            
+
             return Ok(feedback);
         }
     }

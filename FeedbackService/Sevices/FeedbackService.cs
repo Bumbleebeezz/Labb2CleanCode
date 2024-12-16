@@ -17,17 +17,13 @@ namespace FeedbackService.Sevices
         {
         }
 
-        public async Task<Feedback> SubmitFeedbackAsync(FeedbackDTO feedbackDto)
+        public async Task<double> GetAverageRatingAsync(int productId)
         {
-            var feedback = new Feedback
-            {
-                ProductId = feedbackDto.ProductId,
-                Comment = feedbackDto.Comment,
-                Rating = feedbackDto.Rating
-            };
+            var feedbacks = await _feedbackRepository.GetByProductIdAsync(productId);
+            if (!feedbacks.Any())
+                return 0;
 
-            await _feedbackRepository.AddAsync(feedback);
-            return feedback;
+            return feedbacks.Average(f => f.Rating);
         }
 
         public async Task<Feedback?> GetFeedbackByIdAsync(int feedbackId)
@@ -40,13 +36,17 @@ namespace FeedbackService.Sevices
             return await _feedbackRepository.GetByProductIdAsync(productId);
         }
 
-        public async Task<double> GetAverageRatingAsync(int productId)
+        public async Task<Feedback> SubmitFeedbackAsync(FeedbackDTO feedbackDto)
         {
-            var feedbacks = await _feedbackRepository.GetByProductIdAsync(productId);
-            if (!feedbacks.Any())
-                return 0;
+            var feedback = new Feedback
+            {
+                ProductId = feedbackDto.ProductId,
+                Comment = feedbackDto.Comment,
+                Rating = feedbackDto.Rating
+            };
 
-            return feedbacks.Average(f => f.Rating);
+            await _feedbackRepository.AddAsync(feedback);
+            return feedback;
         }
     }
 }

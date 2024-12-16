@@ -26,7 +26,7 @@ namespace Dataccess.Repositories.Feedbacks
         public async Task<IEnumerable<Feedback>> GetByProductIdAsync(int productId)
         {
             return await _dbContext.Feedbacks
-                .Where(f => f.ProductId == productId)
+                .Where(f => f.Id == productId)
                 .ToListAsync();
         }
     }

@@ -7,7 +7,6 @@ namespace Dataccess
     {
         public DbSet<Feedback> Feedbacks { get; set; }
 
-        public FeedbackDbContext() { }
         public FeedbackDbContext(DbContextOptions<FeedbackDbContext> options) : base(options) { }
 
     }

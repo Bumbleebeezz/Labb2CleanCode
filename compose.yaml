@@ -1,25 +1,55 @@
-﻿﻿services:
+﻿version: '3.8'
+
+services:
   rabbit-mq:
     image: rabbitmq:4.0-management
     healthcheck:
-      test: ["CMD", "rabbitmqctl", "status"]
+      test: [ "CMD", "rabbitmqctl", "status" ]
       interval: 5s
       timeout: 3s
       retries: 5
-      
 
   
-  api-feedback:
-    build:
-      context: .
-      dockerfile: ./FeedbackService/Dockerfile
-    depends_on:
-      rabbit-mq:
-       condition: service_healthy
-       
+
   gateway:
     build:
       context: .
       dockerfile: ./Gateway/Dockerfile
     ports:
       - "5003:8080"
+
+  # sqlserver:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: sqlserver
+  #   ports:
+  #     - "1433:1433"
+  #   environment:
+  #     SA_PASSWORD: "SuperSafePass.123"
+  #     ACCEPT_EULA: "Y"
+  #   volumes:
+  #     - sqlserver_data:/var/opt/mssql
+
+  feedbacksql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: feedbacksql
+    ports:
+      - "1434:1433"
+    environment:
+      SA_PASSWORD: "SuperSafePass123"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - feedback_volume:/var/opt/mssql
+
+  feedback-service:
+    build:
+        context: FeedbackService
+    depends_on:
+        - feedbacksql
+    ports:
+        - "5006:8080"
+    environment:
+      ConnectionStrings_DefaultConnection: "Server=feedbacksql;Database=MyDatabase;User Id=sa;Password=SuperSafePass123;TrustServerCertificate=True;"
+
+volumes:
+  # sqlserver_data: {}
+  feedback_volume: {}

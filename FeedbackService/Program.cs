@@ -1,12 +1,19 @@
 using Dataccess;
+using Dataccess.Repositories.Feedbacks;
+using FeedbackService.Sevices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IFeedbackService, FeedbackService.Sevices.FeedbackService>();
+builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 
 // Add DbContext with SQL Server or any other provider
+//builder.Services.AddDbContext<FeedbackDbContext>(options =>
+//   options.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionStrings_DefaultConnection")));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FeedbackDbContext>(options =>
@@ -15,27 +22,23 @@ builder.Services.AddDbContext<FeedbackDbContext>(options =>
 var app = builder.Build();
 
 // Apply migrations on startup
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<FeedbackDbContext>();
-    dbContext.Database.Migrate();
-}
-
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<FeedbackDbContext>();
+
+        dbContext.Database.Migrate();
+    }
+
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapRazorPages();
+app.MapControllers();
 
 app.Run();
